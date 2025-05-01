@@ -19,7 +19,7 @@ export default function HeaderInstructions() {
 				>
 					<FaQuestionCircle
 						size={25}
-						className="text-blue-500 transition-transform duration-200 hover:scale-125"
+						className="text-blue-500 transition-transform duration-200 hover:scale-110"
 					/>
 				</button>
 			</p>
