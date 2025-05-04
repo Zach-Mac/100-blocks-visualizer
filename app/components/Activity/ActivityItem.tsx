@@ -1,9 +1,9 @@
 'use client'
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { FaTrash } from 'react-icons/fa'
 import ReactColorfulInput from '@/app/components/ReactColorfulInput'
-import { usePlanner } from '@/app/components/PlannerProvider'
+import { useGlobalState } from '@/app/components/Provider'
 import { Activity } from '@/app/types'
 
 function lightenHSL(hsl: string, amount: number) {
@@ -21,7 +21,7 @@ export default function ActivityItem({
 	activity: Activity
 	onDelete: () => void
 }) {
-	const { state, setState, setSelectedActivity, selectedActivity } = usePlanner()
+	const { state, setState, setSelectedActivity, selectedActivity } = useGlobalState()
 	const minutes = React.useMemo(() => {
 		const blockCount = state.blocks.filter(b => b.activityId === activity.id).length
 		return blockCount * 10

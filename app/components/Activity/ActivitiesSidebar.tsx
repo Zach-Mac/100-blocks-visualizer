@@ -1,12 +1,12 @@
 'use client'
 import { useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
-import { usePlanner } from '@/app/components/PlannerProvider'
-import ActivityList from '@/app/components/ActivityList'
+import { useGlobalState } from '@/app/components/Provider'
+import ActivityList from '@/app/components/Activity/ActivityList'
 import ConfirmModal from '@/app/components/ConfirmModal'
 
 export default function ActivitiesSidebar() {
-	const { state, addActivity, deleteActivity } = usePlanner()
+	const { state, addActivity, deleteActivity } = useGlobalState()
 
 	const [newActivity, setNewActivity] = useState('')
 
@@ -68,7 +68,7 @@ export default function ActivitiesSidebar() {
 			<ConfirmModal
 				open={confirmModal.open}
 				title="Delete Activity"
-				message="This activity is used in the planner. Delete anyway?"
+				message="This activity is used in the grid. Delete anyway?"
 				confimText="Delete"
 				onConfirm={confirmDelete}
 				onCancel={cancelDelete}

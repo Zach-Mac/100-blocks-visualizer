@@ -1,5 +1,5 @@
 import { defaultVariants } from '@/app/motion'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { useEffect, type FC, type ReactNode } from 'react'
 
 const modalVariants = {

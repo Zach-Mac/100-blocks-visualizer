@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import PlannerProvider from '@/app/components/PlannerProvider'
+import Provider from '@/app/components/Provider'
 
 export const metadata: Metadata = {
 	title: '100 Blocks a Day Visualizer',
@@ -15,7 +15,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<PlannerProvider>{children}</PlannerProvider>
+				<Provider>{children}</Provider>
 			</body>
 		</html>
 	)

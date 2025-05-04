@@ -1,6 +1,6 @@
 'use client'
-import { AnimatePresence } from 'framer-motion'
-import ActivityItem from '@/app/components/ActivityItem'
+import { AnimatePresence } from 'motion/react'
+import ActivityItem from '@/app/components/Activity/ActivityItem'
 import { Activity } from '@/app/types'
 
 export default function ActivityList({

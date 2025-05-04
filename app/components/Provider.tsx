@@ -2,22 +2,22 @@
 import React, { createContext, useContext, useState } from 'react'
 import { Activity, Block } from '@/app/types'
 
-interface PlannerState {
+interface GlobalState {
 	activities: Activity[]
 	blocks: Block[]
 	startTime: string
 }
 
-interface PlannerContextType {
-	state: PlannerState
-	setState: React.Dispatch<React.SetStateAction<PlannerState>>
+interface ContextType {
+	state: GlobalState
+	setState: React.Dispatch<React.SetStateAction<GlobalState>>
 	selectedActivity: string | null
 	setSelectedActivity: React.Dispatch<React.SetStateAction<string | null>>
 	addActivity: (name: string) => void
 	deleteActivity: (id: string) => void
 }
 
-const PlannerContext = createContext<PlannerContextType | null>(null)
+const Context = createContext<ContextType | null>(null)
 
 function useLocalStorage<T>(key: string, initialValue: T) {
 	const [value, setValue] = React.useState<T>(() => {
@@ -31,7 +31,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 	return [value, setValue] as const
 }
 
-const initialState: PlannerState = {
+const initialState: GlobalState = {
 	activities: [],
 	blocks: Array(100)
 		.fill(null)
@@ -43,14 +43,14 @@ const initialState: PlannerState = {
 	startTime: '08:00'
 }
 
-export function usePlanner() {
-	const context = useContext(PlannerContext)
+export function useGlobalState() {
+	const context = useContext(Context)
 	if (!context) throw new Error('usePlanner must be used within PlannerProvider')
 	return context
 }
 
-export default function PlannerProvider({ children }: { children: React.ReactNode }) {
-	const [state, setState] = useLocalStorage<PlannerState>('plannerState', initialState)
+export default function Provider({ children }: { children: React.ReactNode }) {
+	const [state, setState] = useLocalStorage<GlobalState>('plannerState', initialState)
 	const [selectedActivity, setSelectedActivity] = useState<string | null>(null)
 
 	const addActivity = (name: string) => {
@@ -80,7 +80,7 @@ export default function PlannerProvider({ children }: { children: React.ReactNod
 	}
 
 	return (
-		<PlannerContext.Provider
+		<Context.Provider
 			value={{
 				state,
 				setState,
@@ -91,6 +91,6 @@ export default function PlannerProvider({ children }: { children: React.ReactNod
 			}}
 		>
 			{children}
-		</PlannerContext.Provider>
+		</Context.Provider>
 	)
 }

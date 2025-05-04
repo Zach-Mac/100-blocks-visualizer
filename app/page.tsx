@@ -1,7 +1,7 @@
 'use client'
-import PlannerGrid from '@/app/components/PlannerGrid'
+import BlocksWindow from '@/app/components/BlocksWindow'
 import HeaderInstructions from '@/app/components/HeaderInstructions'
-import ActivitiesSidebar from '@/app/components/ActivitiesSidebar'
+import ActivitiesSidebar from '@/app/components/Activity/ActivitiesSidebar'
 
 export default function PlannerApp() {
 	return (
@@ -20,7 +20,7 @@ export default function PlannerApp() {
 						<ActivitiesSidebar />
 					</div>
 					<div className="bg-white rounded-lg shadow-lg p-6">
-						<PlannerGrid />
+						<BlocksWindow />
 					</div>
 				</div>
 			</div>
