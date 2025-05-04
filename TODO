@@ -1,0 +1,35 @@
+From26Apr2025 C
+
+Activity names
+TODO: Editable Activity names
+TODO: Rearrange activity names
+
+TODO: activity names on grid
+    - hover block see name of activity?
+        - in tooltip or overlayed?
+    - click button to toggle seeing labels on the grid?
+
+State
+TODO: ideal vs reality grids?
+    - multiple windows with tabs idea:
+        - Global activities bar
+        - Window:
+            - is grid card
+            - has tabs at top
+            - plus button to add new tab
+        - Click +/add button right (or bottom on mobile) to add new window
+        - Default view is Ideal and Actual tabs, opened side by side
+
+TODO: save/share buttons
+    - base64 encoding?
+    - unencoded params?
+    - both?
+    - words encoding?
+
+Time
+TODO: live now indicator
+TODO: times along side
+
+Small features
+TODO: drag select on mobile
+
