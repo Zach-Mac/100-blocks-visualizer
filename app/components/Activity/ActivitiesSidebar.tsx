@@ -6,7 +6,7 @@ import ActivityList from '@/app/components/Activity/ActivityList'
 import ConfirmModal from '@/app/components/ConfirmModal'
 
 export default function ActivitiesSidebar() {
-	const { state, addActivity, deleteActivity } = useGlobalState()
+	const { activities, addActivity, deleteActivity, activityIsUsed } = useGlobalState()
 
 	const [newActivity, setNewActivity] = useState('')
 
@@ -21,7 +21,7 @@ export default function ActivitiesSidebar() {
 	}
 
 	function handleDeleteActivity(id: string) {
-		if (state.blocks.some(b => b.activityId === id)) {
+		if (activityIsUsed(id)) {
 			setConfirmModal({ open: true, activityId: id })
 			return
 		}
@@ -31,12 +31,16 @@ export default function ActivitiesSidebar() {
 	const confirmDelete = () => {
 		const id = confirmModal.activityId
 		if (!id) return
+
 		deleteActivity(id)
 		setConfirmModal({ open: false, activityId: null })
 	}
+
 	const cancelDelete = () => {
 		setConfirmModal({ open: false, activityId: null })
 	}
+
+	console.log('Activities', activities)
 
 	return (
 		<>
@@ -57,12 +61,12 @@ export default function ActivitiesSidebar() {
 				</button>
 			</div>
 			<div className="mb-4">
-				{state.activities.length === 0 ? (
+				{activities.length === 0 ? (
 					<div className="text-gray-400 text-center py-6">
 						No activities yet. Add one above!
 					</div>
 				) : (
-					<ActivityList activities={state.activities} onDelete={handleDeleteActivity} />
+					<ActivityList activities={activities} onDelete={handleDeleteActivity} />
 				)}
 			</div>
 			<ConfirmModal

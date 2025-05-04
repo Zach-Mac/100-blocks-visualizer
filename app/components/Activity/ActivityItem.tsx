@@ -9,7 +9,7 @@ import { Activity } from '@/app/types'
 function lightenHSL(hsl: string, amount: number) {
 	const match = hsl.match(/^hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)$/)
 	if (!match) return hsl
-	const [_, h, s, l] = match
+	const [, h, s, l] = match
 	const newL = Math.min(100, Math.round(Number(l) + (100 - Number(l)) * amount))
 	return `hsl(${h}, ${s}%, ${newL}%)`
 }
@@ -21,21 +21,24 @@ export default function ActivityItem({
 	activity: Activity
 	onDelete: () => void
 }) {
-	const { state, setState, setSelectedActivity, selectedActivity } = useGlobalState()
-	const minutes = React.useMemo(() => {
-		const blockCount = state.blocks.filter(b => b.activityId === activity.id).length
-		return blockCount * 10
-	}, [state.blocks, activity.id])
+	const { selectedActivityId, setSelectedActivityId, setActivityColor } = useGlobalState()
+
+	// const minutes = React.useMemo(() => {
+	// 	const blockCount = state.blocks.filter(b => b.activityId === activity.id).length
+	// 	return blockCount * 10
+	// }, [state.blocks, activity.id])
+	// TODO: temp
+	const minutes = 0
 
 	const handleClick = () => {
-		if (selectedActivity === activity.id) {
-			setSelectedActivity(null)
+		if (selectedActivityId === activity.id) {
+			setSelectedActivityId(null)
 		} else {
-			setSelectedActivity(activity.id)
+			setSelectedActivityId(activity.id)
 		}
 	}
 
-	const mildBg = selectedActivity === activity.id ? lightenHSL(activity.color, 0.9) : undefined
+	const mildBg = selectedActivityId === activity.id ? lightenHSL(activity.color, 0.9) : undefined
 
 	return (
 		<motion.div
@@ -47,25 +50,20 @@ export default function ActivityItem({
 		>
 			<motion.div
 				className={`flex items-center p-2 pr-0 rounded-lg transition-all duration-200 group cursor-pointer border-2 bg-white relative ${
-					selectedActivity !== activity.id
+					selectedActivityId !== activity.id
 						? 'hover:bg-gray-50 border-transparent'
 						: ' border-purple-600'
 				}`}
 				style={{
-					...(selectedActivity === activity.id ? { backgroundColor: mildBg } : undefined)
+					...(selectedActivityId === activity.id
+						? { backgroundColor: mildBg }
+						: undefined)
 				}}
 				onClick={handleClick}
 			>
 				<ReactColorfulInput
 					color={activity.color}
-					onChange={color => {
-						setState({
-							...state,
-							activities: state.activities.map(a =>
-								a.id === activity.id ? { ...a, color } : a
-							)
-						})
-					}}
+					onChange={color => setActivityColor(activity.id, color)}
 				/>
 				<span className="flex-1 text-sm">{activity.name}</span>
 				<span className="text-xs text-gray-500 mr-2">

@@ -5,6 +5,4 @@ export interface Activity {
 }
 export interface Block {
 	activityId: string | null
-	startTime: string
-	endTime: string
 }

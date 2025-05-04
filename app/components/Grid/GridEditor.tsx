@@ -1,18 +1,26 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { FaRegClock, FaTrash } from 'react-icons/fa'
-import { useGlobalState } from '@/app/components/Provider'
+import { useGrid } from '@/app/components/Provider'
 import ConfirmModal from '@/app/components/ConfirmModal'
-import BlocksGrid from '@/app/components/BlocksGrid'
+import BlocksGrid from '@/app/components/Grid/Grid'
 
-export default () => {
-	const { state, setState } = useGlobalState()
+export default function GridEditor() {
+	const { grid, setGridState } = useGrid()
 
 	const [clearGridModal, setClearGridModal] = useState(false)
 
+	function handleStartTimeChange(e: React.ChangeEvent<HTMLInputElement>) {
+		setGridState(prev => ({
+			...prev,
+			startTime: e.target.value
+		}))
+	}
+
 	const handleClearGrid = () => setClearGridModal(true)
+
 	const confirmClearGrid = () => {
-		setState(prev => ({
+		setGridState(prev => ({
 			...prev,
 			blocks: prev.blocks.map(b => ({ ...b, activityId: null }))
 		}))
@@ -34,13 +42,8 @@ export default () => {
 					<input
 						id="wake-up-time"
 						type="time"
-						value={state.startTime}
-						onChange={e =>
-							setState(prev => ({
-								...prev,
-								startTime: e.target.value
-							}))
-						}
+						value={grid.state.startTime}
+						onChange={handleStartTimeChange}
 						className="w-28 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
 					/>
 				</div>

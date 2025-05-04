@@ -1,7 +1,13 @@
 import type { Block } from '@/app/types'
-import { useGlobalState } from '@/app/components/Provider'
+import { useGlobalState, useGrid } from '@/app/components/Provider'
 import { scaledVariants } from '@/app/motion'
 import { motion } from 'motion/react'
+
+function getTimeString(minutes: number) {
+	const h = Math.floor(minutes / 60) % 24
+	const m = minutes % 60
+	return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`
+}
 
 export default function Block({
 	block,
@@ -18,9 +24,18 @@ export default function Block({
 	onMouseEnter: (e: React.MouseEvent) => void
 	onMouseLeave: (e: React.MouseEvent) => void
 }) {
-	const { state } = useGlobalState()
+	const { getActivity } = useGlobalState()
+	const { grid } = useGrid()
 
-	const activity = state.activities.find(a => a.id === block.activityId)
+	const gridStartTime = grid.state.startTime
+
+	const activity = getActivity(block.activityId)
+
+	const [hours, minutes] = gridStartTime.split(':').map(Number)
+
+	const totalMinutesStart = hours * 60 + minutes + index * 10
+	const totalMinutesEnd = totalMinutesStart + 10
+
 	return (
 		<div
 			key={index}
@@ -42,11 +57,11 @@ export default function Block({
 					className="absolute inset-0 flex flex-col items-center justify-center font-mono bg-black/30 text-white text-xs font-semibold"
 				>
 					<div className="flex items-center">
-						<span>{block.startTime}</span>
+						<span>{getTimeString(totalMinutesStart)}</span>
 						<span>-</span>
 					</div>
 					<div className="flex items-center">
-						<span>{block.endTime}</span>
+						<span>{getTimeString(totalMinutesEnd)}</span>
 						<span className="opacity-0">-</span>
 					</div>
 				</motion.div>
