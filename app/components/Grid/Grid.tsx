@@ -1,3 +1,4 @@
+'use client'
 import Block from '@/app/components/Grid/Block'
 import { useGlobalState, useGrid } from '@/app/components/Provider'
 import { useEffect, useRef, useState } from 'react'

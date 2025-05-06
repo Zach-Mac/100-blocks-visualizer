@@ -1,3 +1,4 @@
+'use client'
 import type { Block } from '@/app/types'
 import { useGlobalState, useGrid } from '@/app/components/Provider'
 import { scaledVariants } from '@/app/motion'
