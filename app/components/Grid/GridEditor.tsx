@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { FaBroom, FaLock, FaRegClock, FaTrash } from 'react-icons/fa'
+import { FaLock, FaRegClock } from 'react-icons/fa'
 import { useGrid } from '@/app/components/Provider'
 import ConfirmModal from '@/app/components/ConfirmModal'
 import BlocksGrid from '@/app/components/Grid/Grid'

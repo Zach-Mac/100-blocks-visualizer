@@ -19,7 +19,8 @@ const eslintConfig = [
 			}
 		},
 		rules: {
-			'@typescript-eslint/no-misused-spread': 'error'
+			'@typescript-eslint/no-misused-spread': 'error',
+			'@typescript-eslint/no-unused-vars': 'warn'
 		}
 	}
 ]
