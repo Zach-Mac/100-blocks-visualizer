@@ -19,6 +19,7 @@ TODO: ideal vs reality grids?
             - plus button to add new tab
         - Click +/add button right (or bottom on mobile) to add new window
         - Default view is Ideal and Actual tabs, opened side by side
+    TODO: too many tabs overflow
 
 TODO: save/share buttons
     - base64 encoding?
@@ -33,3 +34,19 @@ TODO: times along side
 Small features
 TODO: drag select on mobile
 
+
+
+This feature:
+TODO: show activity time on activity bar
+TODO: change empty cell colors to white, either grey or black borders
+
+
+
+BOTTOM BAR OF EDITOR
+TODO: highlight hour blocks?
+TODO: lock button
+clear button
+
+
+Keyboard Navigation
+TODO: modal focus trap

@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Activity, Block } from '@/app/types'
 
 interface Grid {
@@ -14,14 +14,19 @@ interface GridState {
 }
 
 function useLocalStorage<T>(key: string, initialValue: T) {
-	const [value, setValue] = React.useState<T>(() => {
-		if (typeof window === 'undefined') return initialValue
+	const [hydrated, setHydrated] = useState(false)
+	const [value, setValue] = useState<T>(initialValue)
+
+	useEffect(() => {
 		const stored = localStorage.getItem(key)
-		return stored ? JSON.parse(stored) : initialValue
-	})
-	React.useEffect(() => {
-		localStorage.setItem(key, JSON.stringify(value))
-	}, [key, value])
+		if (stored) setValue(JSON.parse(stored))
+		setHydrated(true)
+	}, [key])
+
+	useEffect(() => {
+		if (hydrated) localStorage.setItem(key, JSON.stringify(value))
+	}, [key, value, hydrated])
+
 	return [value, setValue] as const
 }
 
@@ -35,19 +40,22 @@ const defaultGridState: GridState = {
 		})),
 	startTime: '08:00'
 }
+const defaultGrids: Grid[] = [
+	{ id: 'ideal', name: 'Ideal', state: defaultGridState },
+	{ id: 'actual', name: 'Actual', state: defaultGridState }
+]
+export const defaultGridIds = defaultGrids.map(g => g.id)
 
 function useGlobalContextValue() {
 	const [selectedActivityId, setSelectedActivityId] = useState<string | null>(null)
 
 	const [activities, setActivities] = useLocalStorage<Activity[]>('activities', [])
-	const [allGrids, setAllGrids] = useLocalStorage<Grid[]>('grids', [
-		{ id: 'ideal', name: 'Ideal', state: defaultGridState },
-		{ id: 'actual', name: 'Actual', state: defaultGridState }
-	])
+	const [allGrids, setAllGrids] = useLocalStorage<Grid[]>('grids', defaultGrids)
 
-	function addGrid(name: string): void {
+	function addGrid(name: string): Grid {
 		const id = Date.now().toString()
 		setAllGrids(grids => [...grids, { id, name, state: defaultGridState } satisfies Grid])
+		return { id, name, state: defaultGridState }
 	}
 
 	function renameGrid(gridId: string, newName: string): void {
@@ -56,8 +64,14 @@ function useGlobalContextValue() {
 		)
 	}
 
-	function deleteGrid(gridId: string): void {
+	function deleteGrid(gridId: string): string | null {
+		// Delete grid and return the id of the previous grid in array
+		const gridIndex = allGrids.findIndex(g => g.id === gridId)
+		if (gridIndex === -1) return null
+		const prevGridId = allGrids[gridIndex - 1]?.id || allGrids[gridIndex + 1]?.id || null
 		setAllGrids(grids => grids.filter(g => g.id !== gridId))
+
+		return prevGridId
 	}
 
 	function updateGridState(gridId: string, updater: React.SetStateAction<GridState>): void {
@@ -164,6 +178,7 @@ export function useGlobalState() {
 // --- GridWindow Context (per window) ---
 function useGridWindowContextValue(gridId: string) {
 	const { allGrids, updateGridState } = useGlobalState()
+
 	const grid = allGrids.find(g => g.id === gridId)
 
 	if (!grid) throw new Error(`Grid with id ${gridId} not found`)

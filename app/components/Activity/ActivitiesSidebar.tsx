@@ -40,11 +40,9 @@ export default function ActivitiesSidebar() {
 		setConfirmModal({ open: false, activityId: null })
 	}
 
-	console.log('Activities', activities)
-
 	return (
 		<>
-			<div className="flex mb-4">
+			<div className="flex">
 				<input
 					type="text"
 					value={newActivity}
@@ -60,7 +58,7 @@ export default function ActivitiesSidebar() {
 					<FaPlus />
 				</button>
 			</div>
-			<div className="mb-4">
+			<div>
 				{activities.length === 0 ? (
 					<div className="text-gray-400 text-center py-6">
 						No activities yet. Add one above!
