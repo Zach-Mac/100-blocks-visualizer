@@ -1,6 +1,8 @@
+'use client'
 import { defaultVariants } from '@/app/motion'
 import { motion, AnimatePresence } from 'motion/react'
 import { useEffect, type FC, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 
 const modalVariants = {
 	initial: { opacity: 0, scale: 0.95, y: 40 },
@@ -15,6 +17,7 @@ type ModalProps = {
 }
 
 const Modal: FC<ModalProps> = ({ open, onClose, children, className }) => {
+	// Close on Escape
 	useEffect(() => {
 		if (!open) return
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -24,7 +27,12 @@ const Modal: FC<ModalProps> = ({ open, onClose, children, className }) => {
 		return () => window.removeEventListener('keydown', handleKeyDown)
 	}, [open, onClose])
 
-	return (
+	// SSR guard
+	if (typeof window === 'undefined') return null
+
+	const modalRoot = document.getElementById('modal-root') || document.body
+
+	const modalContent = (
 		<AnimatePresence>
 			{open && (
 				<motion.div
@@ -35,6 +43,9 @@ const Modal: FC<ModalProps> = ({ open, onClose, children, className }) => {
 					transition={{ duration: 0.18 }}
 					className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
 					onClick={onClose}
+					aria-modal="true"
+					role="dialog"
+					tabIndex={-1}
 				>
 					<motion.div
 						variants={modalVariants}
@@ -46,6 +57,7 @@ const Modal: FC<ModalProps> = ({ open, onClose, children, className }) => {
 							className || ''
 						}`}
 						onClick={e => e.stopPropagation()}
+						role="document"
 					>
 						{children}
 					</motion.div>
@@ -53,5 +65,7 @@ const Modal: FC<ModalProps> = ({ open, onClose, children, className }) => {
 			)}
 		</AnimatePresence>
 	)
+
+	return createPortal(modalContent, modalRoot)
 }
 export default Modal
