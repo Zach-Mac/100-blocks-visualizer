@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { GlobalStateProvider } from '@/app/components/Provider'
 
 export const metadata: Metadata = {
 	title: '100 Blocks a Day Visualizer',
@@ -14,8 +15,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				{children}
-				<div id="modal-root" />
+				<GlobalStateProvider>
+					{children}
+					<div id="modal-root" />
+				</GlobalStateProvider>
 			</body>
 		</html>
 	)

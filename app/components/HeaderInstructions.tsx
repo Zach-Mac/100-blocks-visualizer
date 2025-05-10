@@ -12,14 +12,14 @@ export default function HeaderInstructions() {
 				compare that with how you actually spend them.
 				<button
 					className="ml-2 align-middle flex items-center justify-center w-6 h-6 rounded-full"
-					aria-label="Show instructions"
+					aria-label="Help"
 					onClick={() => setOpen(true)}
 					type="button"
 					title="How to use"
 				>
 					<FaQuestionCircle
 						size={25}
-						className="text-blue-500 transition-transform duration-200 hover:scale-110"
+						className="text-blue-500 transition-transform cursor-pointer duration-200 hover:scale-110"
 					/>
 				</button>
 			</p>

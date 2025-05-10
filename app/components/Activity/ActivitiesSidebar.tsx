@@ -42,13 +42,13 @@ export default function ActivitiesSidebar() {
 
 	return (
 		<>
-			<div className="flex">
+			<div className="flex w-full min-w-0">
 				<input
 					type="text"
 					value={newActivity}
 					onChange={e => setNewActivity(e.target.value)}
 					placeholder="New activity..."
-					className="flex-grow p-2 border rounded-l-lg"
+					className="flex-grow min-w-0 p-2 border rounded-l-lg"
 					onKeyDown={e => e.key === 'Enter' && handleAddActivity()}
 				/>
 				<button
@@ -70,7 +70,7 @@ export default function ActivitiesSidebar() {
 			<ConfirmModal
 				open={confirmModal.open}
 				title="Delete Activity"
-				message="This activity is used in the grid. Delete anyway?"
+				message="This activity is used in at least one of your grids. Deleting it will remove it from all grids. Are you sure?"
 				confimText="Delete"
 				onConfirm={confirmDelete}
 				onCancel={cancelDelete}

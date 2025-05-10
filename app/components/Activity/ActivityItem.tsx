@@ -1,10 +1,11 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { FaTrash } from 'react-icons/fa'
 import ReactColorfulInput from '@/app/components/ReactColorfulInput'
 import { useGlobalState } from '@/app/components/Provider'
 import { Activity } from '@/app/types'
+import clsx from 'clsx'
 
 function lightenHSL(hsl: string, amount: number) {
 	const match = hsl.match(/^hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)$/)
@@ -14,6 +15,13 @@ function lightenHSL(hsl: string, amount: number) {
 	return `hsl(${h}, ${s}%, ${newL}%)`
 }
 
+function printMinutes(minutes: number | null) {
+	if (minutes === null) return ''
+	const h = Math.floor(minutes / 60)
+	const m = minutes % 60
+	return `${h}h ${m.toString().padStart(2, '0')}m`
+}
+
 export default function ActivityItem({
 	activity,
 	onDelete
@@ -21,14 +29,18 @@ export default function ActivityItem({
 	activity: Activity
 	onDelete: () => void
 }) {
-	const { selectedActivityId, setSelectedActivityId, setActivityColor } = useGlobalState()
+	const {
+		selectedActivityId,
+		setSelectedActivityId,
+		setActivityColor,
+		getActivityMinutes,
+		showSecondGrid
+	} = useGlobalState()
 
-	// const minutes = React.useMemo(() => {
-	// 	const blockCount = state.blocks.filter(b => b.activityId === activity.id).length
-	// 	return blockCount * 10
-	// }, [state.blocks, activity.id])
-	// TODO: temp
-	const minutes = 0
+	const minutes = useMemo(
+		() => getActivityMinutes(activity.id),
+		[activity.id, getActivityMinutes]
+	)
 
 	const handleClick = () => {
 		if (selectedActivityId === activity.id) {
@@ -40,6 +52,14 @@ export default function ActivityItem({
 
 	const mildBg = selectedActivityId === activity.id ? lightenHSL(activity.color, 0.9) : undefined
 
+	const getItemClasses = (activityId: string) =>
+		clsx(
+			'flex items-center group p-2 pr-0 rounded-lg border-2 bg-white transition-all duration-200 cursor-pointer',
+			selectedActivityId === activityId
+				? 'border-purple-600'
+				: 'border-transparent hover:bg-gray-50'
+		)
+
 	return (
 		<motion.div
 			layout
@@ -49,32 +69,38 @@ export default function ActivityItem({
 			transition={{ type: 'spring', stiffness: 600, damping: 30 }}
 		>
 			<motion.div
-				className={`flex items-center p-2 pr-0 rounded-lg transition-all duration-200 group cursor-pointer border-2 bg-white relative ${
-					selectedActivityId !== activity.id
-						? 'hover:bg-gray-50 border-transparent'
-						: ' border-purple-600'
-				}`}
-				style={{
-					...(selectedActivityId === activity.id
-						? { backgroundColor: mildBg }
-						: undefined)
-				}}
 				onClick={handleClick}
+				className={getItemClasses(activity.id)}
+				style={selectedActivityId === activity.id ? { backgroundColor: mildBg } : undefined}
 			>
-				<ReactColorfulInput
-					color={activity.color}
-					onChange={color => setActivityColor(activity.id, color)}
-				/>
-				<span className="flex-1 text-sm">{activity.name}</span>
-				<span className="text-xs text-gray-500 mr-2">
-					{Math.floor(minutes / 60)}h {minutes % 60}m
+				{/* 1. color picker never shrinks */}
+				<div className="flex-shrink-0">
+					<ReactColorfulInput
+						color={activity.color}
+						onChange={c => setActivityColor(activity.id, c)}
+					/>
+				</div>
+
+				{/* 2. name fills available space and truncates */}
+				<span className="flex-1 truncate text-sm">{activity.name}</span>
+
+				{/* 3. fixed-width, monospace time cells */}
+				<span className="flex-shrink-0 w-16 text-right font-mono text-xs text-gray-500">
+					{printMinutes(minutes[0])}
 				</span>
+				{showSecondGrid && (
+					<span className="flex-shrink-0 w-16 text-right font-mono text-xs text-gray-500">
+						{printMinutes(minutes[1])}
+					</span>
+				)}
+
+				{/* 4. delete button never shrinks */}
 				<button
 					onClick={e => {
 						e.stopPropagation()
 						onDelete()
 					}}
-					className="opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity px-4 py-2 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+					className="flex-shrink-0 opacity-100 sm:opacity-0 group-hover:opacity-100 px-4 py-2 text-gray-400 hover:text-red-500 transition-all cursor-pointer"
 				>
 					<FaTrash />
 				</button>

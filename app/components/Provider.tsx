@@ -48,6 +48,8 @@ export const defaultGridIds = defaultGrids.map(g => g.id)
 
 function useGlobalContextValue() {
 	const [selectedActivityId, setSelectedActivityId] = useState<string | null>(null)
+	const [selectedGridIds, setSelectedGridIds] = useState<string[]>(defaultGridIds)
+	const [showSecondGrid, setShowSecondGrid] = useState(false)
 
 	const [activities, setActivities] = useLocalStorage<Activity[]>('activities', [])
 	const [allGrids, setAllGrids] = useLocalStorage<Grid[]>('grids', defaultGrids)
@@ -65,9 +67,12 @@ function useGlobalContextValue() {
 	}
 
 	function deleteGrid(gridId: string): string | null {
+		if (defaultGridIds.includes(gridId))
+			throw new Error(`Cannot delete default grid: ${gridId}`)
+
 		// Delete grid and return the id of the previous grid in array
 		const gridIndex = allGrids.findIndex(g => g.id === gridId)
-		if (gridIndex === -1) return null
+		if (gridIndex === -1) throw new Error(`Grid with id ${gridId} not found`)
 		const prevGridId = allGrids[gridIndex - 1]?.id || allGrids[gridIndex + 1]?.id || null
 		setAllGrids(grids => grids.filter(g => g.id !== gridId))
 
@@ -144,7 +149,24 @@ function useGlobalContextValue() {
 		return allGrids.some(grid => grid.state.blocks.some(block => block.activityId === id))
 	}
 
+	function getActivityMinutes(id: string): number[] {
+		const minutes: number[] = [0, 0]
+		for (const [index, gridId] of selectedGridIds.entries()) {
+			const grid = allGrids.find(g => g.id === gridId)
+			if (!grid) throw new Error(`Grid with id ${gridId} not found`)
+
+			const blockCount = grid.state.blocks.filter(b => b.activityId === id).length
+			minutes[index] = blockCount * 10
+		}
+		return minutes
+	}
+
 	return {
+		selectedGridIds,
+		setSelectedGridIds,
+		showSecondGrid,
+		setShowSecondGrid,
+
 		allGrids,
 		addGrid,
 		renameGrid,
@@ -157,6 +179,7 @@ function useGlobalContextValue() {
 		deleteActivity,
 		setActivityColor,
 		activityIsUsed,
+		getActivityMinutes,
 
 		selectedActivityId,
 		setSelectedActivityId

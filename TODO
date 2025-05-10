@@ -1,8 +1,22 @@
 From26Apr2025 C
 
+
+This feature:
+TODO: renaming weird
+TODO: show activity time on activity bar
+TODO: 2nd grid button below on mobile
+TODO: layout issues: 
+    - overflowing lots of tabs
+    - hideable sidebar on small width
+    - activity delete should always be visible on touch devices, not just on mobile width
+TODO: bottom bar
+TODO: export import grids
+
+
 Activity names
 TODO: Editable Activity names
 TODO: Rearrange activity names
+TODO: color picker hex/text input?
 
 TODO: activity names on grid
     - hover block see name of activity?
@@ -31,15 +45,10 @@ Time
 TODO: live now indicator
 TODO: times along side
 
-Small features
-TODO: drag select on mobile
 
-
-
-This feature:
-TODO: show activity time on activity bar
-TODO: change empty cell colors to white, either grey or black borders
-
+Responsiveness
+TODO: drag select on touch devices
+TODO: title size weird on certain widths
 
 
 BOTTOM BAR OF EDITOR
@@ -50,3 +59,7 @@ clear button
 
 Keyboard Navigation
 TODO: modal focus trap
+
+
+Error handling
+TODO: localstorage error handling
