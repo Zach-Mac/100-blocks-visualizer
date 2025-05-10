@@ -2,7 +2,8 @@ From26Apr2025 C
 
 
 This feature:
-TODO: renaming weird
+TODO: context menu vibrate on mobile
+TODO: clean files
 TODO: show activity time on activity bar
 TODO: 2nd grid button below on mobile
 TODO: layout issues: 
@@ -11,6 +12,14 @@ TODO: layout issues:
     - activity delete should always be visible on touch devices, not just on mobile width
 TODO: bottom bar
 TODO: export import grids
+
+
+This feature done:
+grid tabs
+2 grids
+delete new grid are you sure
+rename grids
+on rename highlight current name
 
 
 Activity names
@@ -59,6 +68,7 @@ clear button
 
 Keyboard Navigation
 TODO: modal focus trap
+TODO: full keyboard navigation
 
 
 Error handling

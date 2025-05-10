@@ -18,12 +18,6 @@ interface Props<T> {
 export function ContextMenu<T>({ state, items, onClose }: Props<T>) {
 	if (!state.visible || state.payload == null) return null
 
-	// className={[
-	//     +              'block w-full px-4 py-2 text-left',
-	//     +              item.danger ? 'text-red-600' : 'text-gray-800',
-	//     +              isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'
-	//     +            ].join(' ')}
-
 	const menu = (
 		<div
 			className="absolute bg-white shadow-lg rounded-md py-1 z-50 border border-gray-200"
@@ -51,6 +45,7 @@ export function ContextMenu<T>({ state, items, onClose }: Props<T>) {
 							item.action(state.payload!)
 							onClose()
 						}}
+						autoFocus={i === 0}
 					>
 						{item.label}
 					</button>

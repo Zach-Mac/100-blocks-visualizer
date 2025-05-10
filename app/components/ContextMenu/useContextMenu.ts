@@ -1,4 +1,4 @@
-import { useState, useEffect, MouseEvent } from 'react'
+import { useState, useEffect } from 'react'
 
 export interface ContextMenuState<T = unknown> {
 	visible: boolean
@@ -21,8 +21,17 @@ export default function useContextMenu<T>() {
 				setState(s => ({ ...s, visible: false, payload: null }))
 			}
 		}
+		function handleKeyDown(e: KeyboardEvent) {
+			if (e.key === 'Escape' && state.visible) {
+				setState(s => ({ ...s, visible: false, payload: null }))
+			}
+		}
 		document.addEventListener('click', handleClickOutside)
-		return () => document.removeEventListener('click', handleClickOutside)
+		document.addEventListener('keydown', handleKeyDown)
+		return () => {
+			document.removeEventListener('click', handleClickOutside)
+			document.removeEventListener('keydown', handleKeyDown)
+		}
 	}, [state.visible])
 
 	function open(x: number, y: number, payload: T) {

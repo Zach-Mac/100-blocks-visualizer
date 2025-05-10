@@ -25,6 +25,7 @@ const ConfirmModal: FC<Props> = ({ open, title, message, confimText, onConfirm, 
 				<button
 					className="px-5 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold shadow-md transition cursor-pointer"
 					onClick={onConfirm}
+					autoFocus
 				>
 					{confimText}
 				</button>

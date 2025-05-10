@@ -1,16 +1,14 @@
 import TabButton from '@/app/components/Grid/Tabs/TabButton'
+import { getTabClasses } from '@/app/components/Grid/Tabs/useTabs'
 import clsx from 'clsx'
-import { useState } from 'react'
-
-// TODO: Test if contextmenu works automatically with touch devices, if not implement
+import { useEffect, useRef, useState } from 'react'
 
 type TabButtonProps = {
 	name: string
 	setName: (value: string) => void
 	isRenaming: boolean
 	setIsRenaming: (value: boolean) => void
-	// onContextMenu?: (e: React.MouseEvent | { clientX: number; clientY: number }) => void
-	className?: string
+	selected: boolean
 } & React.ComponentPropsWithoutRef<'button'>
 
 export default function TabButtonRenameable({
@@ -18,29 +16,18 @@ export default function TabButtonRenameable({
 	setName,
 	isRenaming,
 	setIsRenaming,
-	// onContextMenu,
-	className,
+	selected,
 	...rest
 }: TabButtonProps) {
 	const [newName, setNewName] = useState(name)
-	// const touchTimeout = useRef<NodeJS.Timeout | null>(null)
+	const inputRef = useRef<HTMLInputElement>(null)
 
-	// function handleTouchStart(e: React.TouchEvent) {
-	// 	// Get touch position for context menu
-	// 	const touch = e.touches[0]
-	// 	touchTimeout.current = setTimeout(() => {
-	// 		if (onContextMenu) {
-	// 			onContextMenu({ clientX: touch.clientX, clientY: touch.clientY })
-	// 		}
-	// 	}, 500) // 500ms for long press
-	// }
-
-	// function clearTouchTimeout() {
-	// 	if (touchTimeout.current) {
-	// 		clearTimeout(touchTimeout.current)
-	// 		touchTimeout.current = null
-	// 	}
-	// }
+	useEffect(() => {
+		if (isRenaming && inputRef.current) {
+			inputRef.current.focus()
+			inputRef.current.select()
+		}
+	}, [isRenaming])
 
 	function handleSubmit() {
 		setName(newName)
@@ -55,7 +42,8 @@ export default function TabButtonRenameable({
 	if (isRenaming) {
 		return (
 			<input
-				className={clsx(className, 'w-32 px-2 py-1 outline-none cursor-text')}
+				ref={inputRef}
+				className={clsx(getTabClasses(selected), 'w-32 px-2 py-1 outline-none cursor-text')}
 				value={newName}
 				onChange={e => setNewName(e.target.value)}
 				onKeyDown={e => {
@@ -70,14 +58,7 @@ export default function TabButtonRenameable({
 	}
 
 	return (
-		<TabButton
-			className={clsx(className)}
-			onDoubleClick={() => setIsRenaming(true)}
-			// onTouchStart={handleTouchStart}
-			// onTouchEnd={clearTouchTimeout}
-			// onTouchCancel={clearTouchTimeout}
-			{...rest}
-		>
+		<TabButton selected={selected} onDoubleClick={() => setIsRenaming(true)} {...rest}>
 			{name}
 		</TabButton>
 	)
