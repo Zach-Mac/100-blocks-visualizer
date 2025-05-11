@@ -29,12 +29,12 @@ export default function ReactColorfulInput({
 	return (
 		<div className="relative" ref={ref} onClick={e => e.stopPropagation()}>
 			<div
-				className="w-6 h-6 rounded-lg mr-2 cursor-pointer border border-gray-300"
+				className="mr-2 h-6 w-6 cursor-pointer rounded-lg border border-gray-300"
 				style={{ backgroundColor: color }}
 				onClick={e => setOpen(o => !o)}
 			/>
 			{open && (
-				<div className="absolute z-10 top-8 left-0 bg-white p-2 rounded-lg shadow-lg">
+				<div className="absolute top-8 left-0 z-10 rounded-lg bg-white p-2 shadow-lg">
 					<HslStringColorPicker color={color} onChange={onChange} />
 				</div>
 			)}

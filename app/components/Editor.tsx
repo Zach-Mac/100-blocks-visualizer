@@ -7,17 +7,17 @@ export default function Editor() {
 
 	return (
 		<>
-			<div className="bg-white rounded-lg shadow-lg p-4 lg:p-6 md:pt-8 flex flex-col gap-4">
+			<div className="flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg md:pt-8 lg:p-6">
 				<ActivitiesSidebar />
 			</div>
-			<div className="flex items-stretch relative overflow-visible">
-				<div className="flex-1 relative">
+			<div className="relative flex items-stretch overflow-visible">
+				<div className="relative flex-1">
 					<GridManager index={0} />
 				</div>
 				{!showSecondGrid && (
 					<button
 						onClick={() => setShowSecondGrid(true)}
-						className="rounded-r-2xl border-2 border-l-0 border-gray-200 h-[50%] cursor-pointer transition-all hover:bg-gray-200 absolute top-1/2 -translate-y-1/2 w-6 hover:w-12 -right-6 hover:-right-12"
+						className="absolute top-1/2 -right-6 h-[50%] w-6 -translate-y-1/2 cursor-pointer rounded-r-2xl border-2 border-l-0 border-gray-200 transition-all hover:-right-12 hover:w-12 hover:bg-gray-200"
 						title="Add another grid manager"
 					>
 						+
@@ -37,7 +37,7 @@ export default function Editor() {
 				)}
 			</div>
 			{showSecondGrid && (
-				<div className="flex-1 relative">
+				<div className="relative flex-1">
 					<GridManager index={1} />
 				</div>
 			)}

@@ -2,16 +2,14 @@ From26Apr2025 C
 
 
 This feature:
-TODO: context menu vibrate on mobile
-TODO: clean files
-TODO: show activity time on activity bar
 TODO: 2nd grid button below on mobile
-TODO: layout issues: 
+TODO: layout issues:
     - overflowing lots of tabs
     - hideable sidebar on small width
     - activity delete should always be visible on touch devices, not just on mobile width
 TODO: bottom bar
 TODO: export import grids
+TODO: animations: new gridmanager appear/dissapear, create/delete grid, delete activity from grid 
 
 
 This feature done:
@@ -20,6 +18,7 @@ grid tabs
 delete new grid are you sure
 rename grids
 on rename highlight current name
+show activity time on activity bar
 
 
 Activity names
@@ -55,9 +54,10 @@ TODO: live now indicator
 TODO: times along side
 
 
-Responsiveness
+Responsiveness/mobile
 TODO: drag select on touch devices
 TODO: title size weird on certain widths
+TODO: context menu vibrate on mobile
 
 
 BOTTOM BAR OF EDITOR

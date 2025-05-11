@@ -23,7 +23,7 @@ export default function PlannerApp() {
 				{/* ROW 1 */}
 				<div className={singleWrapperClasses}>
 					<div className={singleColumnClasses}>
-						<h1 className="text-3xl lg:text-4xl font-extrabold text-blue-500 tracking-tight py-4 pr-1 text-center">
+						<h1 className="py-4 pr-1 text-center text-3xl font-extrabold tracking-tight text-blue-500 lg:text-4xl">
 							100 Blocks a Day
 						</h1>
 						<HeaderInstructions />

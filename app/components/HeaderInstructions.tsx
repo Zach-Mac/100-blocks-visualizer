@@ -6,12 +6,12 @@ export default function HeaderInstructions() {
 	const [open, setOpen] = useState(false)
 
 	return (
-		<div className="bg-white/80 shadow rounded-lg px-3 py-2 border border-gray-100 text-gray-700">
+		<div className="rounded-lg border border-gray-100 bg-white/80 px-3 py-2 text-gray-700 shadow">
 			<p className="inline-flex items-center gap-2">
 				Visualize how you plan to use your 100 daily blocks (each block = 10 minutes), and
 				compare that with how you actually spend them.
 				<button
-					className="ml-2 align-middle flex items-center justify-center w-6 h-6 rounded-full"
+					className="ml-2 flex h-6 w-6 items-center justify-center rounded-full align-middle"
 					aria-label="Help"
 					onClick={() => setOpen(true)}
 					type="button"
@@ -19,7 +19,7 @@ export default function HeaderInstructions() {
 				>
 					<FaQuestionCircle
 						size={25}
-						className="text-blue-500 transition-transform cursor-pointer duration-200 hover:scale-110"
+						className="cursor-pointer text-blue-500 transition-transform duration-200 hover:scale-110"
 					/>
 				</button>
 			</p>
@@ -29,7 +29,7 @@ export default function HeaderInstructions() {
 					href="https://waitbutwhy.com/2016/10/100-blocks-day.html"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="underline text-blue-600"
+					className="text-blue-600 underline"
 				>
 					Wait But Why
 				</a>
@@ -41,8 +41,8 @@ export default function HeaderInstructions() {
 				onClose={() => setOpen(false)}
 			>
 				<div className="p-7 pb-5">
-					<h2 className="text-2xl font-bold mb-2 text-gray-800">How to Use</h2>
-					<ul className="text-gray-600 list-disc list-inside space-y-1 text-left mb-7">
+					<h2 className="mb-2 text-2xl font-bold text-gray-800">How to Use</h2>
+					<ul className="mb-7 list-inside list-disc space-y-1 text-left text-gray-600">
 						<li>
 							<b>Add activities</b> in the sidebar.
 						</li>
@@ -56,7 +56,7 @@ export default function HeaderInstructions() {
 					</ul>
 					<div className="flex justify-end">
 						<button
-							className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition"
+							className="rounded-lg bg-blue-600 px-5 py-2 font-semibold text-white shadow-md transition hover:bg-blue-700"
 							onClick={() => setOpen(false)}
 						>
 							Close

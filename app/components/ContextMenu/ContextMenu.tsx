@@ -20,7 +20,7 @@ export function ContextMenu<T>({ state, items, onClose }: Props<T>) {
 
 	const menu = (
 		<div
-			className="absolute bg-white shadow-lg rounded-md py-1 z-50 border border-gray-200"
+			className="absolute z-50 rounded-md border border-gray-200 bg-white py-1 shadow-lg"
 			style={{ top: state.y, left: state.x, position: 'fixed' }}
 		>
 			{items.map((item, i) => {
@@ -33,11 +33,11 @@ export function ContextMenu<T>({ state, items, onClose }: Props<T>) {
 					<button
 						key={i}
 						className={clsx(
-							'block w-full text-left px-4 py-2 text-sm ',
+							'block w-full px-4 py-2 text-left text-sm',
 							item.danger ? 'text-red-600' : 'text-gray-800',
 							isDisabled
-								? 'opacity-50 cursor-not-allowed'
-								: 'hover:bg-gray-100 cursor-pointer'
+								? 'cursor-not-allowed opacity-50'
+								: 'cursor-pointer hover:bg-gray-100'
 						)}
 						disabled={isDisabled}
 						onClick={() => {

@@ -43,7 +43,7 @@ export default function TabButtonRenameable({
 		return (
 			<input
 				ref={inputRef}
-				className={clsx(getTabClasses(selected), 'w-32 px-2 py-1 outline-none cursor-text')}
+				className={clsx(getTabClasses(selected), 'w-32 cursor-text px-2 py-1 outline-none')}
 				value={newName}
 				onChange={e => setNewName(e.target.value)}
 				onKeyDown={e => {

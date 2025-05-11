@@ -48,19 +48,19 @@ export default function ActivitiesSidebar() {
 					value={newActivity}
 					onChange={e => setNewActivity(e.target.value)}
 					placeholder="New activity..."
-					className="flex-grow min-w-0 p-2 border rounded-l-lg"
+					className="min-w-0 flex-grow rounded-l-lg border p-2"
 					onKeyDown={e => e.key === 'Enter' && handleAddActivity()}
 				/>
 				<button
 					onClick={handleAddActivity}
-					className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-2 px-4 rounded-r-lg transition-colors hover:from-blue-600 hover:to-purple-700 cursor-pointer"
+					className="cursor-pointer rounded-r-lg bg-gradient-to-r from-blue-500 to-purple-600 p-2 px-4 text-white transition-colors hover:from-blue-600 hover:to-purple-700"
 				>
 					<FaPlus />
 				</button>
 			</div>
 			<div>
 				{activities.length === 0 ? (
-					<div className="text-gray-400 text-center py-6">
+					<div className="py-6 text-center text-gray-400">
 						No activities yet. Add one above!
 					</div>
 				) : (

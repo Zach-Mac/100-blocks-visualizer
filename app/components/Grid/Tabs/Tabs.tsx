@@ -30,7 +30,7 @@ export default function Tabs({ gridManagerIndex }: { gridManagerIndex: number })
 	}, [showTabList])
 
 	return (
-		<div className="flex justify-between overflow-x-auto whitespace-nowrap ">
+		<div className="flex justify-between overflow-x-auto whitespace-nowrap">
 			<div className="flex">
 				<GridSelectTabs gridManagerIndex={gridManagerIndex} />
 			</div>

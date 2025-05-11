@@ -43,7 +43,7 @@ export default function Grid() {
 	}, [isDragging])
 
 	return (
-		<div className="grid grid-cols-10 gap-1 p-0 rounded-lg select-none">
+		<div className="grid grid-cols-10 gap-1 rounded-lg p-0 select-none">
 			{grid.state.blocks.map((block, index) => {
 				return (
 					<Block

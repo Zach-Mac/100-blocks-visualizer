@@ -40,7 +40,7 @@ export default function Block({
 	return (
 		<div
 			key={index}
-			className="relative aspect-square rounded cursor-pointer transition-opacity group flex items-center justify-center overflow-hidden"
+			className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded transition-opacity"
 			style={{
 				backgroundColor: activity?.color || '#ffffff'
 			}}
@@ -55,7 +55,7 @@ export default function Block({
 					animate="visible"
 					exit="hidden"
 					transition={{ duration: 0.2 }}
-					className="absolute inset-0 flex flex-col items-center justify-center font-mono bg-black/20 text-white text-xs font-semibold"
+					className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 font-mono text-xs font-semibold text-white"
 				>
 					<div className="flex items-center">
 						<span>{getTimeString(totalMinutesStart)}</span>

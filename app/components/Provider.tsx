@@ -86,7 +86,7 @@ function useGlobalContextValue() {
 					? ({
 							...g,
 							state: typeof updater === 'function' ? updater(g.state) : updater
-					  } satisfies Grid)
+						} satisfies Grid)
 					: g
 			)
 		)
@@ -128,10 +128,10 @@ function useGlobalContextValue() {
 									({
 										...b,
 										activityId: b.activityId === id ? null : b.activityId
-									} satisfies Block)
+									}) satisfies Block
 							)
 						}
-					} satisfies Grid)
+					}) satisfies Grid
 			)
 		)
 

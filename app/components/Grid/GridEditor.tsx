@@ -4,6 +4,7 @@ import { FaLock, FaRegClock } from 'react-icons/fa'
 import { useGrid } from '@/app/components/Provider'
 import ConfirmModal from '@/app/components/ConfirmModal'
 import BlocksGrid from '@/app/components/Grid/Grid'
+import clsx from 'clsx'
 
 export default function GridEditor() {
 	const { grid, setGridState } = useGrid()
@@ -33,11 +34,11 @@ export default function GridEditor() {
 
 	return (
 		<div>
-			<div className="flex items-center justify-between mb-4">
-				<div className="flex items-center gap-2 bg-white/80 rounded-lg border-gray-200">
-					<FaRegClock className="text-gray-400 text-lg" />
+			<div className="mb-4 flex items-center justify-between">
+				<div className="flex items-center gap-2 rounded-lg border-gray-200 bg-white/80">
+					<FaRegClock className="text-lg text-gray-400" />
 					<label
-						className="block text-sm font-semibold text-gray-700 mb-0"
+						className="mb-0 block text-sm font-semibold text-gray-700"
 						htmlFor="wake-up-time"
 					>
 						Wake up at:
@@ -47,11 +48,11 @@ export default function GridEditor() {
 						type="time"
 						value={grid.state.startTime}
 						onChange={handleStartTimeChange}
-						className="w-28 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
+						className="w-28 rounded-lg border border-gray-300 p-2 transition focus:border-blue-400 focus:ring-2 focus:ring-blue-400"
 					/>
 				</div>
 			</div>
-			<div className="flex flex-col gap-4 bg-gray-100 p-1 rounded-lg">
+			<div className="flex flex-col gap-4 rounded-lg bg-gray-100 p-1">
 				<BlocksGrid />
 			</div>
 
@@ -59,19 +60,17 @@ export default function GridEditor() {
 			<div className="mt-4 flex items-center justify-between">
 				<div className="flex gap-2">
 					<button
-						className={
-							buttonClasses +
-							' hover:bg-gradient-to-r from-red-500 to-pink-500 hover:text-white'
-						}
+						className={clsx(
+							buttonClasses
+							// 'hover:bg-gradient-to-r from-red-500 to-pink-500 hover:text-white'
+						)}
 						onClick={handleClearGrid}
 					>
 						Clear grid
 					</button>
-					<button className={buttonClasses}>Test button 1</button>
-					<button className={buttonClasses}>Test button 2</button>
-					<button className={buttonClasses}>
+					{/* <button className={buttonClasses}>
 						<FaLock className="text-gray-400" />
-					</button>
+					</button> */}
 				</div>
 			</div>
 			<ConfirmModal

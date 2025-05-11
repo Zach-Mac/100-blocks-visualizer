@@ -85,11 +85,11 @@ export default function ActivityItem({
 				<span className="flex-1 truncate text-sm">{activity.name}</span>
 
 				{/* 3. fixed-width, monospace time cells */}
-				<span className="flex-shrink-0 w-16 text-right font-mono text-xs text-gray-500">
+				<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
 					{printMinutes(minutes[0])}
 				</span>
 				{showSecondGrid && (
-					<span className="flex-shrink-0 w-16 text-right font-mono text-xs text-gray-500">
+					<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
 						{printMinutes(minutes[1])}
 					</span>
 				)}
@@ -100,7 +100,7 @@ export default function ActivityItem({
 						e.stopPropagation()
 						onDelete()
 					}}
-					className="flex-shrink-0 opacity-100 sm:opacity-0 group-hover:opacity-100 px-4 py-2 text-gray-400 hover:text-red-500 transition-all cursor-pointer"
+					className="flex-shrink-0 cursor-pointer px-4 py-2 text-gray-400 opacity-100 transition-all group-hover:opacity-100 hover:text-red-500 sm:opacity-0"
 				>
 					<FaTrash />
 				</button>

@@ -38,6 +38,7 @@ export default function GridSelectTabs({ gridManagerIndex }: { gridManagerIndex:
 	const handleContextMenu = (e: React.MouseEvent, gridId: string) => {
 		e.preventDefault()
 
+		// TODO: don't think this works lol
 		if (navigator.vibrate) navigator.vibrate(10)
 
 		open(e.clientX, e.clientY, gridId)
@@ -113,7 +114,7 @@ export default function GridSelectTabs({ gridManagerIndex }: { gridManagerIndex:
 				/>
 			))}
 
-			<TabButton selected onClick={handleAddGrid} title="Add New Grid">
+			<TabButton onClick={handleAddGrid} title="Add New Grid">
 				<FaPlus className="font-normal" />
 			</TabButton>
 
