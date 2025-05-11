@@ -18,7 +18,7 @@ export default function GridManager({ index }: Props) {
 
 	return (
 		<div className="flex h-full flex-col">
-			<header className="sticky top-0 z-20">
+			<header className="top-0 z-20">
 				<Tabs gridManagerIndex={index} />
 			</header>
 

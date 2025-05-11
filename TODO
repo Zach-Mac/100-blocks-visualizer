@@ -2,12 +2,10 @@ From26Apr2025 C
 
 
 This feature:
-TODO: 2nd grid button below on mobile
 TODO: layout issues:
     - overflowing lots of tabs
     - hideable sidebar on small width
     - activity delete should always be visible on touch devices, not just on mobile width
-TODO: bottom bar
 TODO: export import grids
 TODO: animations: new gridmanager appear/dissapear, create/delete grid, delete activity from grid 
 
@@ -19,6 +17,8 @@ delete new grid are you sure
 rename grids
 on rename highlight current name
 show activity time on activity bar
+2nd grid button below on mobile
+bottom bar
 
 
 Activity names

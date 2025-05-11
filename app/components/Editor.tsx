@@ -1,6 +1,17 @@
 import ActivitiesSidebar from '@/app/components/Activity/ActivitiesSidebar'
 import GridManager from '@/app/components/Grid/GridManager'
 import { useGlobalState } from '@/app/components/Provider'
+import clsx from 'clsx'
+
+const buttonClasses =
+	'absolute cursor-pointer border-2 border-gray-200 transition-all hover:bg-gray-200 -z-0'
+const buttonClassesXs =
+	'left-1/4 -bottom-6 w-[50%] h-6 rounded-b-2xl border-t-0 hover:-bottom-12 hover:h-12'
+const buttonClassesMd =
+	'top-1/2 -right-6 h-[50%] w-6 -translate-y-1/2 rounded-r-2xl border-l-0 hover:-right-12 hover:w-12'
+
+const buttonMobileClasses = clsx(buttonClasses, buttonClassesXs, 'block md:hidden')
+const buttonDesktopClasses = clsx(buttonClasses, buttonClassesMd, 'hidden md:block')
 
 export default function Editor() {
 	const { showSecondGrid, setShowSecondGrid } = useGlobalState()
@@ -11,17 +22,26 @@ export default function Editor() {
 				<ActivitiesSidebar />
 			</div>
 			<div className="relative flex items-stretch overflow-visible">
-				<div className="relative flex-1">
+				<div className="relative z-10 flex-1">
 					<GridManager index={0} />
 				</div>
 				{!showSecondGrid && (
-					<button
-						onClick={() => setShowSecondGrid(true)}
-						className="absolute top-1/2 -right-6 h-[50%] w-6 -translate-y-1/2 cursor-pointer rounded-r-2xl border-2 border-l-0 border-gray-200 transition-all hover:-right-12 hover:w-12 hover:bg-gray-200"
-						title="Add another grid manager"
-					>
-						+
-					</button>
+					<>
+						<button
+							onClick={() => setShowSecondGrid(true)}
+							className={buttonDesktopClasses}
+							title="Add another grid manager"
+						>
+							+
+						</button>
+						<button
+							onClick={() => setShowSecondGrid(true)}
+							className={buttonMobileClasses}
+							title="Add another grid manager"
+						>
+							+
+						</button>
+					</>
 					//     <button
 					//     onClick={() => setshowSecondGrid(true)}
 					//     className={clsx(
