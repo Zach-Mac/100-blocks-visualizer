@@ -1,12 +1,22 @@
 import Modal from '@/app/components/Modal'
 import { useState } from 'react'
 import { FaQuestionCircle } from 'react-icons/fa'
+import React, { HTMLAttributes } from 'react'
+import clsx from 'clsx'
 
-export default function HeaderInstructions() {
+export default function HeaderInstructions({
+	className = '',
+	...rest
+}: HTMLAttributes<HTMLDivElement>) {
 	const [open, setOpen] = useState(false)
 
+	const mergedClassName = clsx(
+		'rounded-lg border border-gray-100 bg-white/80 px-3 py-2 text-gray-700 shadow',
+		className
+	)
+
 	return (
-		<div className="rounded-lg border border-gray-100 bg-white/80 px-3 py-2 text-gray-700 shadow">
+		<div className={mergedClassName} {...rest}>
 			<p className="inline-flex items-center gap-2">
 				Visualize how you plan to use your 100 daily blocks (each block = 10 minutes), and
 				compare that with how you actually spend them.

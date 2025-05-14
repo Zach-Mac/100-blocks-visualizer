@@ -22,6 +22,12 @@ function printMinutes(minutes: number | null) {
 	return `${h}h ${m.toString().padStart(2, '0')}m`
 }
 
+const itemVariants = {
+	initial: { opacity: 0, scale: 0.1, y: -70 },
+	animate: { opacity: 1, scale: 1, y: 0 },
+	exit: { opacity: 0, scale: 0.1 }
+}
+
 export default function ActivityItem({
 	activity,
 	onDelete
@@ -34,7 +40,8 @@ export default function ActivityItem({
 		setSelectedActivityId,
 		setActivityColor,
 		getActivityMinutes,
-		showSecondGrid
+		showSecondGrid,
+		sidebarCollapsed
 	} = useGlobalState()
 
 	const minutes = useMemo(
@@ -61,49 +68,57 @@ export default function ActivityItem({
 		)
 
 	return (
-		<motion.div
-			layout
-			initial={{ opacity: 0, scale: 0.95, y: 20 }}
-			animate={{ opacity: 1, scale: 1, y: 0 }}
-			exit={{ opacity: 0, scale: 0.9, y: 30, transition: { duration: 0.2 } }}
-			transition={{ type: 'spring', stiffness: 600, damping: 30 }}
-		>
+		<motion.div layout variants={itemVariants} initial="initial" animate="animate" exit="exit">
 			<motion.div
 				onClick={handleClick}
 				className={getItemClasses(activity.id)}
 				style={selectedActivityId === activity.id ? { backgroundColor: mildBg } : undefined}
 			>
 				{/* 1. color picker never shrinks */}
-				<div className="flex-shrink-0">
-					<ReactColorfulInput
-						color={activity.color}
-						onChange={c => setActivityColor(activity.id, c)}
+				{!sidebarCollapsed && (
+					<div className="flex-shrink-0">
+						<ReactColorfulInput
+							color={activity.color}
+							onChange={c => setActivityColor(activity.id, c)}
+						/>
+					</div>
+				)}
+				{sidebarCollapsed && (
+					<div
+						className="mr-1 h-3 w-3 cursor-pointer rounded-lg border border-gray-300"
+						style={{ backgroundColor: activity.color }}
 					/>
-				</div>
+				)}
 
 				{/* 2. name fills available space and truncates */}
 				<span className="flex-1 truncate text-sm">{activity.name}</span>
 
 				{/* 3. fixed-width, monospace time cells */}
-				<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
-					{printMinutes(minutes[0])}
-				</span>
-				{showSecondGrid && (
-					<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
-						{printMinutes(minutes[1])}
-					</span>
+				{!sidebarCollapsed && (
+					<>
+						<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
+							{printMinutes(minutes[0])}
+						</span>
+						{showSecondGrid && (
+							<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
+								{printMinutes(minutes[1])}
+							</span>
+						)}
+					</>
 				)}
 
 				{/* 4. delete button never shrinks */}
-				<button
-					onClick={e => {
-						e.stopPropagation()
-						onDelete()
-					}}
-					className="flex-shrink-0 cursor-pointer px-4 py-2 text-gray-400 opacity-100 transition-all group-hover:opacity-100 hover:text-red-500 sm:opacity-0"
-				>
-					<FaTrash />
-				</button>
+				{!sidebarCollapsed && (
+					<button
+						onClick={e => {
+							e.stopPropagation()
+							onDelete()
+						}}
+						className="group-hover-always:opacity-100 flex-shrink-0 cursor-pointer px-4 py-2 text-gray-400 opacity-0 transition-all hover:text-red-500"
+					>
+						<FaTrash />
+					</button>
+				)}
 			</motion.div>
 		</motion.div>
 	)

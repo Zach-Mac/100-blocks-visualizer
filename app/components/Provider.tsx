@@ -50,6 +50,7 @@ function useGlobalContextValue() {
 	const [selectedActivityId, setSelectedActivityId] = useState<string | null>(null)
 	const [selectedGridIds, setSelectedGridIds] = useState<string[]>(defaultGridIds)
 	const [showSecondGrid, setShowSecondGrid] = useState(false)
+	const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
 	const [activities, setActivities] = useLocalStorage<Activity[]>('activities', [])
 	const [allGrids, setAllGrids] = useLocalStorage<Grid[]>('grids', defaultGrids)
@@ -166,6 +167,9 @@ function useGlobalContextValue() {
 		setSelectedGridIds,
 		showSecondGrid,
 		setShowSecondGrid,
+
+		sidebarCollapsed,
+		setSidebarCollapsed,
 
 		allGrids,
 		addGrid,

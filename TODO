@@ -2,12 +2,8 @@ From26Apr2025 C
 
 
 This feature:
-TODO: layout issues:
-    - overflowing lots of tabs
-    - hideable sidebar on small width
-    - activity delete should always be visible on touch devices, not just on mobile width
+
 TODO: export import grids
-TODO: animations: new gridmanager appear/dissapear, create/delete grid, delete activity from grid 
 
 
 This feature done:
@@ -19,6 +15,18 @@ on rename highlight current name
 show activity time on activity bar
 2nd grid button below on mobile
 bottom bar
+activity delete should always be visible on touch devices, not just on mobile width
+
+
+
+
+
+
+TODO: layout issues:
+    - overflowing lots of tabs
+    - hideable sidebar on small width
+TODO: animations: new gridmanager appear/dissapear, create/delete grid, delete activity from grid 
+
 
 
 Activity names
@@ -69,6 +77,7 @@ clear button
 Keyboard Navigation
 TODO: modal focus trap
 TODO: full keyboard navigation
+    - use headlessui components?
 
 
 Error handling

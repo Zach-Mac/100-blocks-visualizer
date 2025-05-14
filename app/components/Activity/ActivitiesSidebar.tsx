@@ -1,12 +1,21 @@
 'use client'
 import { useState } from 'react'
-import { FaPlus } from 'react-icons/fa'
+import { FaBars, FaPlus } from 'react-icons/fa'
 import { useGlobalState } from '@/app/components/Provider'
 import ActivityList from '@/app/components/Activity/ActivityList'
 import ConfirmModal from '@/app/components/ConfirmModal'
+import React, { HTMLAttributes } from 'react'
+import clsx from 'clsx'
 
-export default function ActivitiesSidebar() {
-	const { activities, addActivity, deleteActivity, activityIsUsed } = useGlobalState()
+export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivElement>) {
+	const {
+		activities,
+		addActivity,
+		deleteActivity,
+		activityIsUsed,
+		sidebarCollapsed,
+		setSidebarCollapsed
+	} = useGlobalState()
 
 	const [newActivity, setNewActivity] = useState('')
 
@@ -42,21 +51,34 @@ export default function ActivitiesSidebar() {
 
 	return (
 		<>
-			<div className="flex w-full min-w-0">
-				<input
-					type="text"
-					value={newActivity}
-					onChange={e => setNewActivity(e.target.value)}
-					placeholder="New activity..."
-					className="min-w-0 flex-grow rounded-l-lg border p-2"
-					onKeyDown={e => e.key === 'Enter' && handleAddActivity()}
-				/>
-				<button
-					onClick={handleAddActivity}
-					className="cursor-pointer rounded-r-lg bg-gradient-to-r from-blue-500 to-purple-600 p-2 px-4 text-white transition-colors hover:from-blue-600 hover:to-purple-700"
+			<div
+				className={clsx('flex', sidebarCollapsed ? 'flex-col items-center' : 'flex-row')}
+				{...rest}
+			>
+				{/* <button
+					className="cursor-pointer p-2 text-center"
+					onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
 				>
-					<FaPlus />
-				</button>
+					<FaBars className="text-gray-400" />
+				</button> */}
+				{!sidebarCollapsed && (
+					<input
+						type="text"
+						value={newActivity}
+						onChange={e => setNewActivity(e.target.value)}
+						placeholder="New activity..."
+						className="min-w-0 flex-grow rounded-l-lg border p-2"
+						onKeyDown={e => e.key === 'Enter' && handleAddActivity()}
+					/>
+				)}
+				{!sidebarCollapsed && (
+					<button
+						onClick={handleAddActivity}
+						className="cursor-pointer rounded-r-lg bg-gradient-to-r from-blue-500 to-purple-600 p-2 px-4 text-white transition-colors hover:from-blue-600 hover:to-purple-700"
+					>
+						<FaPlus />
+					</button>
+				)}
 			</div>
 			<div>
 				{activities.length === 0 ? (
