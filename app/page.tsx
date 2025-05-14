@@ -55,9 +55,9 @@ export default function PlannerApp() {
 						</div>
 
 						<div className={clsx(rowClasses)}>
-							<div className={sidebarClasses}>
+							<motion.div className={sidebarClasses}>
 								<ActivitiesSidebar />
-							</div>
+							</motion.div>
 							<motion.div
 								key="first-grid"
 								variants={gridManager1Variants}

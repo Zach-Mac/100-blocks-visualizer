@@ -25,6 +25,7 @@ export import grids
 TODO: layout issues:
     - overflowing lots of tabs
     - hideable sidebar on small width
+    - adding second grid on 900px causes page overflow
 TODO: animations: new gridmanager appear/dissapear, create/delete grid, delete activity from grid 
 
 
