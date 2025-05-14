@@ -1,27 +1,5 @@
 From26Apr2025 C
 
-
-This feature:
-
-
-
-This feature done:
-grid tabs
-2 grids
-delete new grid are you sure
-rename grids
-on rename highlight current name
-show activity time on activity bar
-2nd grid button below on mobile
-bottom bar
-activity delete should always be visible on touch devices, not just on mobile width
-export import grids
-
-
-
-
-
-
 TODO: layout issues:
     - overflowing lots of tabs
     - hideable sidebar on small width
