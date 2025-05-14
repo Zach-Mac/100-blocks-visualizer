@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { motion } from 'motion/react'
 import { FaTrash } from 'react-icons/fa'
 import ReactColorfulInput from '@/app/components/ReactColorfulInput'

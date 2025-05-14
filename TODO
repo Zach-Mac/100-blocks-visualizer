@@ -3,7 +3,6 @@ From26Apr2025 C
 
 This feature:
 
-TODO: export import grids
 
 
 This feature done:
@@ -16,6 +15,7 @@ show activity time on activity bar
 2nd grid button below on mobile
 bottom bar
 activity delete should always be visible on touch devices, not just on mobile width
+export import grids
 
 
 

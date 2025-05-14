@@ -2,7 +2,6 @@
 import clsx from 'clsx'
 import HeaderInstructions from '@/app/components/HeaderInstructions'
 import { useGlobalState } from '@/app/components/Provider'
-import Editor from '@/app/components/Editor'
 import { AnimatePresence, motion } from 'motion/react'
 import ActivitiesSidebar from '@/app/components/Activity/ActivitiesSidebar'
 import GridManager from '@/app/components/Grid/GridManager'

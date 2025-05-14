@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { FaBars, FaPlus } from 'react-icons/fa'
+import { FaPlus } from 'react-icons/fa'
 import { useGlobalState } from '@/app/components/Provider'
 import ActivityList from '@/app/components/Activity/ActivityList'
 import ConfirmModal from '@/app/components/ConfirmModal'
@@ -8,14 +8,8 @@ import React, { HTMLAttributes } from 'react'
 import clsx from 'clsx'
 
 export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivElement>) {
-	const {
-		activities,
-		addActivity,
-		deleteActivity,
-		activityIsUsed,
-		sidebarCollapsed,
-		setSidebarCollapsed
-	} = useGlobalState()
+	const { activities, addActivity, deleteActivity, activityIsUsed, sidebarCollapsed } =
+		useGlobalState()
 
 	const [newActivity, setNewActivity] = useState('')
 
