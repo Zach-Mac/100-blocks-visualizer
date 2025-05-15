@@ -45,8 +45,6 @@ export default function GridSelectTabs({ gridManagerIndex }: { gridManagerIndex:
 	}
 
 	function confirmDeleteGrid(id: string) {
-		console.log('confirmDeleteGrid', id)
-
 		if (!id || defaultGridIds.includes(id)) return
 
 		const newGridId = deleteGrid(id)

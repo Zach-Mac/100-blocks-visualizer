@@ -17,8 +17,6 @@ export default function PlannerApp() {
 		sidebarCollapsed ? 'max-w-[5rem] p-1' : 'max-w-3xl lg:w-[20rem] p-4 lg:p-6 '
 	)
 
-	console.log(sidebarClasses)
-
 	const gridClasses = 'relative max-w-3xl flex-1'
 	const grid1Classes = clsx(gridClasses, !showSecondGrid && 'lg:mr-auto')
 	const grid2Classes = clsx(gridClasses, showSecondGrid && 'lg:mr-auto')
