@@ -15,11 +15,14 @@ function lightenHSL(hsl: string, amount: number) {
 	return `hsl(${h}, ${s}%, ${newL}%)`
 }
 
-function printMinutes(minutes: number | null) {
+function printMinutes(minutes: number | null, noSpace = false) {
 	if (minutes === null) return ''
 	const h = Math.floor(minutes / 60)
-	const m = minutes % 60
-	return `${h}h ${m.toString().padStart(2, '0')}m`
+	const m = (minutes % 60).toString().padStart(2, '0')
+
+	const pad = noSpace ? '' : ' '
+
+	return `${h}h${pad}${m}m`
 }
 
 const itemVariants = {
@@ -73,6 +76,8 @@ export default function ActivityItem({
 				onClick={handleClick}
 				className={getItemClasses(activity.id)}
 				style={selectedActivityId === activity.id ? { backgroundColor: mildBg } : undefined}
+				title={activity.name}
+				aria-label={activity.name}
 			>
 				{/* 1. color picker never shrinks */}
 				{!sidebarCollapsed && (
@@ -96,12 +101,18 @@ export default function ActivityItem({
 				{/* 3. fixed-width, monospace time cells */}
 				{!sidebarCollapsed && (
 					<>
-						<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
-							{printMinutes(minutes[0])}
+						<span
+							className="mr-1 flex-shrink-1 text-right font-mono text-xs text-gray-500"
+							title="Left grid duration"
+						>
+							{printMinutes(minutes[0], showSecondGrid)}
 						</span>
 						{showSecondGrid && (
-							<span className="w-16 flex-shrink-0 text-right font-mono text-xs text-gray-500">
-								{printMinutes(minutes[1])}
+							<span
+								className="flex-shrink-1 text-right font-mono text-xs text-gray-500"
+								title="Right grid duration"
+							>
+								{printMinutes(minutes[1], showSecondGrid)}
 							</span>
 						)}
 					</>
@@ -114,7 +125,12 @@ export default function ActivityItem({
 							e.stopPropagation()
 							onDelete()
 						}}
-						className="group-hover-always:opacity-100 flex-shrink-0 cursor-pointer px-4 py-2 text-gray-400 opacity-0 transition-all hover:text-red-500"
+						className={clsx(
+							'group-hover-always:opacity-100 flex-shrink-0 cursor-pointer py-2 text-gray-400 opacity-0 transition-all group-hover:opacity-100 hover:text-red-500',
+							showSecondGrid ? 'px-2' : 'px-4'
+						)}
+						title="Delete activity"
+						aria-label="Delete activity"
 					>
 						<FaTrash />
 					</button>

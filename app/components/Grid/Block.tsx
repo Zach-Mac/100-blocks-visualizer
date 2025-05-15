@@ -44,19 +44,13 @@ export default function Block({
 			style={{
 				backgroundColor: activity?.color || '#ffffff'
 			}}
+			title={activity?.name}
 			onMouseDown={onMouseDown}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
 			{isHovered && (
-				<motion.div
-					variants={scaledVariants}
-					initial="hidden"
-					animate="visible"
-					exit="hidden"
-					transition={{ duration: 0.2 }}
-					className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 font-mono text-xs font-semibold text-white"
-				>
+				<div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 font-mono text-xs font-semibold text-white">
 					<div className="flex items-center">
 						<span>{getTimeString(totalMinutesStart)}</span>
 						<span>-</span>
@@ -65,7 +59,7 @@ export default function Block({
 						<span>{getTimeString(totalMinutesEnd)}</span>
 						<span className="opacity-0">-</span>
 					</div>
-				</motion.div>
+				</div>
 			)}
 		</div>
 	)
