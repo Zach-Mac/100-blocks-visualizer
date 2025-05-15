@@ -98,15 +98,18 @@ function useGlobalContextValue() {
 		return activities.find(activity => activity.id === id)
 	}
 
-	function addActivity(name: string): void {
+	function addActivity(name: string, color?: string): void {
 		if (!name.trim()) return
 		const id = Date.now().toString()
+		if (!color) {
+			color = `hsl(${Math.floor(Math.random() * 360)}, 80%, 50%)`
+		}
 		setActivities((prev: Activity[]) => [
 			...prev,
 			{
 				id,
 				name,
-				color: `hsl(${Math.floor(Math.random() * 360)}, 80%, 50%)`
+				color
 			} satisfies Activity
 		])
 		setSelectedActivityId(id)

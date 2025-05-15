@@ -6,6 +6,7 @@ import ActivityList from '@/app/components/Activity/ActivityList'
 import ConfirmModal from '@/app/components/ConfirmModal'
 import React, { HTMLAttributes } from 'react'
 import clsx from 'clsx'
+import FooterButtons from '@/app/components/FooterButtons'
 
 export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivElement>) {
 	const { activities, addActivity, deleteActivity, activityIsUsed, sidebarCollapsed } =
@@ -41,6 +42,16 @@ export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivEle
 
 	const cancelDelete = () => {
 		setConfirmModal({ open: false, activityId: null })
+	}
+
+	async function onExport() {
+		await navigator.clipboard.writeText(JSON.stringify(activities, null, 2))
+	}
+	function onImport(importText: string) {
+		const imported = JSON.parse(importText)
+		imported.forEach((activity: { id: string; name: string; color: string }) => {
+			addActivity(activity.name, activity.color)
+		})
 	}
 
 	return (
@@ -82,6 +93,9 @@ export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivEle
 				) : (
 					<ActivityList activities={activities} onDelete={handleDeleteActivity} />
 				)}
+			</div>
+			<div className="mt-auto">
+				<FooterButtons onImport={onImport} onExport={onExport} entityName="activities" />
 			</div>
 			<ConfirmModal
 				open={confirmModal.open}
