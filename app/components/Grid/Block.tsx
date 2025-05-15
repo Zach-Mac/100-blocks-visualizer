@@ -1,8 +1,6 @@
 'use client'
 import type { Block } from '@/app/types'
 import { useGlobalState, useGrid } from '@/app/components/Provider'
-import { scaledVariants } from '@/app/motion'
-import { motion } from 'motion/react'
 
 function getTimeString(minutes: number) {
 	const h = Math.floor(minutes / 60) % 24

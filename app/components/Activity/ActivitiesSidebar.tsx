@@ -7,12 +7,13 @@ import ConfirmModal from '@/app/components/ConfirmModal'
 import React, { HTMLAttributes } from 'react'
 import clsx from 'clsx'
 import FooterButtons from '@/app/components/FooterButtons'
+import { Activity } from '@/app/types'
 
 export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivElement>) {
 	const { activities, addActivity, deleteActivity, activityIsUsed, sidebarCollapsed } =
 		useGlobalState()
 
-	const [newActivity, setNewActivity] = useState('')
+	const [newActivityName, setNewActivityName] = useState('')
 
 	const [confirmModal, setConfirmModal] = useState<{ open: boolean; activityId: string | null }>({
 		open: false,
@@ -20,8 +21,10 @@ export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivEle
 	})
 
 	function handleAddActivity() {
-		addActivity(newActivity)
-		setNewActivity('')
+		addActivity({
+			name: newActivityName
+		})
+		setNewActivityName('')
 	}
 
 	function handleDeleteActivity(id: string) {
@@ -49,8 +52,8 @@ export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivEle
 	}
 	function onImport(importText: string) {
 		const imported = JSON.parse(importText)
-		imported.forEach((activity: { id: string; name: string; color: string }) => {
-			addActivity(activity.name, activity.color)
+		imported.forEach((activity: Activity) => {
+			addActivity(activity)
 		})
 	}
 
@@ -69,8 +72,8 @@ export default function ActivitiesSidebar({ ...rest }: HTMLAttributes<HTMLDivEle
 				{!sidebarCollapsed && (
 					<input
 						type="text"
-						value={newActivity}
-						onChange={e => setNewActivity(e.target.value)}
+						value={newActivityName}
+						onChange={e => setNewActivityName(e.target.value)}
 						placeholder="New activity..."
 						className="min-w-0 flex-grow rounded-l-lg border p-2"
 						onKeyDown={e => e.key === 'Enter' && handleAddActivity()}
