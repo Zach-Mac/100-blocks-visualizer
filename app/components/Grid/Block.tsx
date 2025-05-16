@@ -61,6 +61,7 @@ export default function Block({
 		>
 			<BlockContent
 				color={activity?.color || DEFAULT_BLOCK_COLOR}
+				isHovered={isHovered}
 				isNow={isNow}
 				nowLinePercent={nowLinePercent}
 			>
