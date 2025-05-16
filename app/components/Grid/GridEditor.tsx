@@ -65,7 +65,7 @@ export default function GridEditor() {
 			</div>
 
 			{/* Footer Buttons */}
-			<div className="mt-4 flex items-center justify-between">
+			<div className="mt-4 flex items-center justify-between gap-2">
 				<FooterButtons
 					onClear={handleClearGrid}
 					onImport={handleImport}

@@ -31,7 +31,7 @@ export default function BlockContent({
 					aria-hidden="true"
 				>
 					<div
-						className="absolute top-0 bottom-0 w-1.5 bg-red-500"
+						className="absolute top-0 bottom-0 w-1 bg-red-500 sm:w-1.5"
 						style={{
 							left: `${nowLinePercent * 100}%`
 						}}
