@@ -8,14 +8,6 @@ import { Activity } from '@/app/types'
 import clsx from 'clsx'
 import Color from 'color'
 
-function lightenHSL(hsl: string, amount: number) {
-	const match = hsl.match(/^hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)$/)
-	if (!match) return hsl
-	const [, h, s, l] = match
-	const newL = Math.min(100, Math.round(Number(l) + (100 - Number(l)) * amount))
-	return `hsl(${h}, ${s}%, ${newL}%)`
-}
-
 function printMinutes(minutes: number | null, noSpace = false) {
 	if (minutes === null) return ''
 	const h = Math.floor(minutes / 60)
@@ -61,7 +53,10 @@ export default function ActivityItem({
 		}
 	}
 
-	const mildBg = selectedActivityId === activity.id ? lightenHSL(activity.color, 0.9) : undefined
+	const mildBg =
+		selectedActivityId === activity.id
+			? Color(activity.color).lighten(0.9).hsl().string()
+			: undefined
 
 	const getItemClasses = (activityId: string) =>
 		clsx(
@@ -84,7 +79,7 @@ export default function ActivityItem({
 				{!sidebarCollapsed && (
 					<div className="flex-shrink-0">
 						<ReactColorfulInput
-							color={Color(activity.color)}
+							color={activity.color}
 							onChange={c => setActivityColor(activity.id, c)}
 						/>
 					</div>

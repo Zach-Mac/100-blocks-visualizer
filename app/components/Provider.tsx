@@ -3,6 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Activity, Block } from '@/app/types'
 import Color from 'color'
 
+export const BLOCK_SIZE = 10 // minutes
+
 interface Grid {
 	id: string
 	name: string
@@ -102,8 +104,7 @@ function useGlobalContextValue() {
 	function addActivity({ id, name, color }: { id?: string; name: string; color?: string }): void {
 		if (!name.trim()) return
 		const activityId = id ?? Date.now().toString()
-		const activityColor = color ?? Color.hsl(Math.floor(Math.random() * 360), 80, 50).hex()
-		// `hsl(${Math.floor(Math.random() * 360)}, 80%, 50%)`
+		const activityColor = color ?? Color.hsl(Math.floor(Math.random() * 360), 80, 50).string()
 		setActivities((prev: Activity[]) => [
 			...prev,
 			{
