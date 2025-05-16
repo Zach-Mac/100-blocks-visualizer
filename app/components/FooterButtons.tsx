@@ -1,10 +1,7 @@
+import CopyButton from '@/app/components/CopyButton'
 import Modal from '@/app/components/Modal'
-import clsx from 'clsx'
 import { useRef, useState } from 'react'
 import { FaEraser, FaPaste, FaCheck, FaCopy } from 'react-icons/fa'
-
-const buttonClasses =
-	'flex items-center gap-2 font-semibold px-4 py-2 rounded-lg hover:scale-105 hover:shadow-lg transition-all duration-150 active:scale-95 cursor-pointer bg-gray-100'
 
 interface FooterButtonsProps {
 	onClear?: () => void
@@ -21,8 +18,6 @@ export default function FooterButtons({
 	entityName,
 	iconsOnly = false
 }: FooterButtonsProps) {
-	const [exportCopied, setExportCopied] = useState(false)
-	const [exportError, setExportError] = useState<string | null>(null)
 	const [importModalOpen, setImportModalOpen] = useState(false)
 	const [importError, setImportError] = useState('')
 	const [importText, setImportText] = useState('')
@@ -51,15 +46,7 @@ export default function FooterButtons({
 	}
 
 	const handleExport = async () => {
-		setExportError(null)
-		try {
-			await onExport?.()
-			setExportCopied(true)
-			setTimeout(() => setExportCopied(false), 1200)
-		} catch (err) {
-			console.error('Export error:', err)
-			setExportError('Failed to export. Please try again.')
-		}
+		await onExport?.()
 	}
 
 	const displayEntityName = entityName ? ' ' + entityName : ''
@@ -69,7 +56,7 @@ export default function FooterButtons({
 			<div className="flex w-full gap-2">
 				{onClear && (
 					<button
-						className={clsx(buttonClasses, 'bg-red-100 text-red-700 hover:bg-red-200')}
+						className="btn btn-red"
 						onClick={onClear}
 						title={`Clear${displayEntityName}`}
 					>
@@ -79,10 +66,7 @@ export default function FooterButtons({
 				)}
 				{onImport && (
 					<button
-						className={clsx(
-							buttonClasses,
-							'bg-blue-100 text-blue-700 hover:bg-blue-200'
-						)}
+						className="btn btn-blue"
 						onClick={openImportModal}
 						title={`Import${displayEntityName}`}
 					>
@@ -91,24 +75,14 @@ export default function FooterButtons({
 					</button>
 				)}
 				{onExport && (
-					<button
-						className={clsx(
-							buttonClasses,
-							'bg-green-100 text-green-700 hover:bg-green-200'
-						)}
-						onClick={handleExport}
+					<CopyButton
+						className="btn btn-green"
+						onCopy={handleExport}
 						title={`Export${displayEntityName}`}
-					>
-						{exportCopied ? (
-							<FaCheck className="text-green-600" />
-						) : (
-							<FaCopy className="text-green-500" />
-						)}
-						{!iconsOnly && <span>Export</span>}
-					</button>
+					/>
 				)}
 			</div>
-			{exportError && <span className="ml-4 text-sm text-red-600">{exportError}</span>}
+			{importError && <span className="ml-4 text-sm text-red-600">{importError}</span>}
 
 			{/* Import Modal */}
 			<Modal open={importModalOpen} onClose={() => setImportModalOpen(false)}>
@@ -129,6 +103,12 @@ export default function FooterButtons({
 						}}
 						placeholder={`Paste JSON here...`}
 						aria-label={`Paste${displayEntityName} JSON`}
+						onKeyDown={e => {
+							if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+								e.preventDefault()
+								handleImportConfirm()
+							}
+						}}
 					/>
 					{importError && <div className="mt-2 text-sm text-red-500">{importError}</div>}
 					<div className="mt-5 flex justify-end gap-3">

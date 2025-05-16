@@ -21,16 +21,7 @@ TODO: activity names on grid
     - click button to toggle seeing labels on the grid?
 
 State
-TODO: ideal vs reality grids?
-    - multiple windows with tabs idea:
-        - Global activities bar
-        - Window:
-            - is grid card
-            - has tabs at top
-            - plus button to add new tab
-        - Click +/add button right (or bottom on mobile) to add new window
-        - Default view is Ideal and Actual tabs, opened side by side
-    TODO: too many tabs overflow
+TODO: too many tabs overflow
 
 TODO: save/share buttons
     - base64 encoding?
