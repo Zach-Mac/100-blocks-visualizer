@@ -1,37 +1,30 @@
 'use client'
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Activity, Block } from '@/app/types'
+import React, { createContext, useContext, useState } from 'react'
+import { Activity, ActivitySchema, Block } from '@/app/types'
 import Color from 'color'
+import { z } from 'zod'
+import { useZodLocalStorage } from '@/app/hooks'
 
 export const BLOCK_SIZE = 10 // minutes
 
-interface Grid {
-	id: string
-	name: string
-	state: GridState
-}
+const GridStateSchema = z.object({
+	blocks: z.array(
+		z.object({
+			activityId: z.string().nullable(),
+			startTime: z.string(),
+			endTime: z.string()
+		})
+	),
+	startTime: z.string()
+})
+type Grid = z.infer<typeof GridSchema>
 
-interface GridState {
-	blocks: Block[]
-	startTime: string
-}
-
-function useLocalStorage<T>(key: string, initialValue: T) {
-	const [hydrated, setHydrated] = useState(false)
-	const [value, setValue] = useState<T>(initialValue)
-
-	useEffect(() => {
-		const stored = localStorage.getItem(key)
-		if (stored) setValue(JSON.parse(stored))
-		setHydrated(true)
-	}, [key])
-
-	useEffect(() => {
-		if (hydrated) localStorage.setItem(key, JSON.stringify(value))
-	}, [key, value, hydrated])
-
-	return [value, setValue] as const
-}
+const GridSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	state: GridStateSchema
+})
+type GridState = z.infer<typeof GridStateSchema>
 
 const defaultGridState: GridState = {
 	blocks: Array(100)
@@ -51,12 +44,28 @@ export const defaultGridIds = defaultGrids.map(g => g.id)
 
 function useGlobalContextValue() {
 	const [selectedActivityId, setSelectedActivityId] = useState<string | null>(null)
-	const [selectedGridIds, setSelectedGridIds] = useState<string[]>(defaultGridIds)
-	const [showSecondGrid, setShowSecondGrid] = useState(false)
+	const [selectedGridIds, setSelectedGridIds] = useZodLocalStorage<string[]>(
+		'selectedGridIds',
+		z.array(z.string()),
+		defaultGridIds
+	)
+	const [showSecondGrid, setShowSecondGrid] = useZodLocalStorage<boolean>(
+		'showSecondGrid',
+		z.boolean(),
+		false
+	)
 	const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
-	const [activities, setActivities] = useLocalStorage<Activity[]>('activities', [])
-	const [allGrids, setAllGrids] = useLocalStorage<Grid[]>('grids', defaultGrids)
+	const [activities, setActivities] = useZodLocalStorage<Activity[]>(
+		'activities',
+		z.array(ActivitySchema),
+		[]
+	)
+	const [allGrids, setAllGrids] = useZodLocalStorage<Grid[]>(
+		'grids',
+		z.array(GridSchema),
+		defaultGrids
+	)
 
 	function addGrid(name: string): Grid {
 		const id = Date.now().toString()

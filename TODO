@@ -5,7 +5,6 @@ BUGFIX: activities move separate from sidebar when adding removing second grid
 TODO: layout issues:
     - overflowing lots of tabs
     - hideable sidebar on small width
-    - adding second grid on 900px causes page overflow
 TODO: animations: new gridmanager appear/dissapear, create/delete grid, delete activity from grid 
 
 TODO: undo redo with shortcuts

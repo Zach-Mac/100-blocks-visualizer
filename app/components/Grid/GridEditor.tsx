@@ -6,11 +6,17 @@ import FooterButtons from '@/app/components/FooterButtons'
 import { useState } from 'react'
 import { FaRegClock } from 'react-icons/fa'
 import BlockContent from '@/app/components/Grid/BlockContent'
+import { useZodLocalStorage } from '@/app/hooks'
+import { z } from 'zod'
 
 export default function GridEditor() {
 	const { grid, setGridState } = useGrid()
 	const [clearGridModal, setClearGridModal] = useState(false)
-	const [showNowIndicator, setShowNowIndicator] = useState(true)
+	const [showNowIndicator, setShowNowIndicator] = useZodLocalStorage(
+		'showNowIndicator',
+		z.boolean(),
+		true
+	)
 
 	function handleStartTimeChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setGridState(prev => ({
