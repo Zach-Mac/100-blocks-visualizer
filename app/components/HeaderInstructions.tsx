@@ -66,7 +66,7 @@ export default function HeaderInstructions({
 					</ul>
 					<div className="flex justify-end">
 						<button
-							className="rounded-lg bg-blue-600 px-5 py-2 font-semibold text-white shadow-md transition hover:bg-blue-700"
+							className="cursor-pointer rounded-lg bg-blue-600 px-5 py-2 font-semibold text-white shadow-md transition hover:bg-blue-700"
 							onClick={() => setOpen(false)}
 						>
 							Close

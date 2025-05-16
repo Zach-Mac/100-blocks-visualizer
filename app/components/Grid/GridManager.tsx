@@ -12,7 +12,7 @@ export default function GridManager({ index }: Props) {
 	const { selectedGridId } = useTabs(index)
 
 	const sectionClasses = clsx(
-		'flex-1 overflow-auto bg-white rounded-lg rounded-tl-none p-4 shadow-lg',
+		'flex-1 overflow-auto bg-white rounded-lg rounded-tl-none p-2 md:p-4 shadow-lg',
 		index !== 0 && 'rounded-tr-none'
 	)
 

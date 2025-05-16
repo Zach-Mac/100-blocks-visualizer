@@ -9,12 +9,12 @@ import GridManager from '@/app/components/Grid/GridManager'
 export default function PlannerApp() {
 	const { showSecondGrid, setShowSecondGrid, sidebarCollapsed } = useGlobalState()
 
-	const colClasses = 'flex flex-col gap-4 mx-5 sm:mx-10 md:mx-30 lg:mx-5'
+	const colClasses = 'flex flex-col gap-4 mx-2 sm:mx-10 md:mx-30 lg:mx-4 lg:mr-12 pb-64 lg:pb-0'
 	const rowClasses = 'flex flex-col gap-4 pt-4 lg:flex-row'
 
 	const sidebarClasses = clsx(
 		'lg:ml-auto flex flex-col gap-4 rounded-lg bg-white shadow-lg lg:pt-8',
-		sidebarCollapsed ? 'max-w-[5rem] p-1' : 'max-w-3xl lg:w-[20rem] p-4 lg:p-6 '
+		sidebarCollapsed ? 'max-w-[5rem] p-1' : 'max-w-3xl lg:w-[20rem] p-4'
 	)
 
 	const gridClasses = 'relative max-w-3xl flex-1'

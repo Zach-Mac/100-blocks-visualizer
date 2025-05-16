@@ -2,8 +2,6 @@ From26Apr2025 C
 
 BUGFIX: activities move separate from sidebar when adding removing second grid
 
-TODO: import export doesn't do activities
-
 TODO: layout issues:
     - overflowing lots of tabs
     - hideable sidebar on small width
