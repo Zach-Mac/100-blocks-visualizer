@@ -9,7 +9,10 @@ import GridManager from '@/app/components/Grid/GridManager'
 export default function PlannerApp() {
 	const { showSecondGrid, setShowSecondGrid, sidebarCollapsed } = useGlobalState()
 
-	const colClasses = 'flex flex-col gap-4 mx-2 sm:mx-10 md:mx-30 lg:mx-4 lg:mr-12 pb-64 lg:pb-0'
+	const colClasses = clsx(
+		'flex flex-col gap-4 mx-2 sm:mx-10 md:mx-30 lg:mx-4 pb-64 lg:pb-0',
+		!showSecondGrid && 'lg:mr-12'
+	)
 	const rowClasses = 'flex flex-col gap-4 pt-4 lg:flex-row'
 
 	const sidebarClasses = clsx(
@@ -19,7 +22,7 @@ export default function PlannerApp() {
 
 	const gridClasses = 'relative max-w-3xl flex-1'
 	const grid1Classes = clsx(gridClasses, !showSecondGrid && 'lg:mr-auto')
-	const grid2Classes = clsx(gridClasses, showSecondGrid && 'lg:mr-auto')
+	const grid2Classes = clsx(gridClasses, showSecondGrid && 'xl:mr-auto', 'lg:ml-auto xl:ml-0')
 
 	const gridManager1Variants = {
 		initial: { opacity: 0, scale: 0.5 },
@@ -52,7 +55,7 @@ export default function PlannerApp() {
 							<HeaderInstructions className="max-w-3xl" />
 						</div>
 
-						<div className={clsx(rowClasses)}>
+						<div className={clsx(rowClasses, 'flex-wrap')}>
 							<motion.div className={sidebarClasses}>
 								<ActivitiesSidebar />
 							</motion.div>
