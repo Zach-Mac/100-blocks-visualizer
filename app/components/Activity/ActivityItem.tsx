@@ -6,6 +6,7 @@ import ReactColorfulInput from '@/app/components/ReactColorfulInput'
 import { useGlobalState } from '@/app/components/Provider'
 import { Activity } from '@/app/types'
 import clsx from 'clsx'
+import Color from 'color'
 
 function lightenHSL(hsl: string, amount: number) {
 	const match = hsl.match(/^hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)$/)
@@ -83,7 +84,7 @@ export default function ActivityItem({
 				{!sidebarCollapsed && (
 					<div className="flex-shrink-0">
 						<ReactColorfulInput
-							color={activity.color}
+							color={Color(activity.color)}
 							onChange={c => setActivityColor(activity.id, c)}
 						/>
 					</div>

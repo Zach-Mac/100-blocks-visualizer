@@ -1,6 +1,7 @@
 'use client'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Activity, Block } from '@/app/types'
+import Color from 'color'
 
 interface Grid {
 	id: string
@@ -101,7 +102,8 @@ function useGlobalContextValue() {
 	function addActivity({ id, name, color }: { id?: string; name: string; color?: string }): void {
 		if (!name.trim()) return
 		const activityId = id ?? Date.now().toString()
-		const activityColor = color ?? `hsl(${Math.floor(Math.random() * 360)}, 80%, 50%)`
+		const activityColor = color ?? Color.hsl(Math.floor(Math.random() * 360), 80, 50).hex()
+		// `hsl(${Math.floor(Math.random() * 360)}, 80%, 50%)`
 		setActivities((prev: Activity[]) => [
 			...prev,
 			{
