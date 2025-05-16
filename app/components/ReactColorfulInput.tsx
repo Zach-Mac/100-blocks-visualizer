@@ -13,6 +13,7 @@ export default function ReactColorfulInput({
 }) {
 	const [open, setOpen] = useState(false)
 	const ref = useRef<HTMLDivElement>(null)
+	const popoverRef = useRef<HTMLDivElement>(null)
 
 	const hexColor = Color(color).hex()
 
@@ -30,9 +31,22 @@ export default function ReactColorfulInput({
 		}
 	}, [open])
 
+	// Focus the popover when it opens for keyboard accessibility
+	useEffect(() => {
+		if (open && popoverRef.current) {
+			popoverRef.current.focus()
+		}
+	}, [open])
+
 	const handleColorChange = (newColor: string) => {
 		const parsedColor = Color(newColor).hsl().string()
 		onChange(parsedColor)
+	}
+
+	const handlePopoverKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === 'Escape') {
+			setOpen(false)
+		}
 	}
 
 	return (
@@ -43,7 +57,12 @@ export default function ReactColorfulInput({
 				onClick={() => setOpen(o => !o)}
 			/>
 			{open && (
-				<div className="absolute top-10 left-0 z-20 flex cursor-default flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-2xl">
+				<div
+					ref={popoverRef}
+					tabIndex={-1}
+					onKeyDown={handlePopoverKeyDown}
+					className="absolute top-10 left-0 z-20 flex cursor-default flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-2xl"
+				>
 					<HslStringColorPicker
 						color={color}
 						onChange={handleColorChange}
