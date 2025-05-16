@@ -1,7 +1,7 @@
 import CopyButton from '@/app/components/CopyButton'
 import Modal from '@/app/components/Modal'
 import { useRef, useState } from 'react'
-import { FaEraser, FaPaste, FaCheck, FaCopy } from 'react-icons/fa'
+import { FaEraser, FaPaste } from 'react-icons/fa'
 
 interface FooterButtonsProps {
 	onClear?: () => void
@@ -52,7 +52,7 @@ export default function FooterButtons({
 	const displayEntityName = entityName ? ' ' + entityName : ''
 
 	return (
-		<div className="mt-4 flex items-center justify-between">
+		<>
 			<div className="flex w-full gap-2">
 				{onClear && (
 					<button
@@ -127,6 +127,6 @@ export default function FooterButtons({
 					</div>
 				</div>
 			</Modal>
-		</div>
+		</>
 	)
 }
